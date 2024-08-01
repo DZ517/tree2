@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>种树游戏</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #e0f7fa;
+            margin: 0;
+        }
+        h1 {
+            color: #388e3c;
+        }
+        #score {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #treeContainer {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tree {
+            width: 50px;
+            height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .small-tree {
+            background-image: url('https://img.icons8.com/fluency/48/000000/deciduous-tree.png');
+        }
+        .medium-tree {
+            background-image: url('https://img.icons8.com/fluency/48/000000/christmas-tree.png');
+        }
+        .large-tree {
+            background-image: url('https://img.icons8.com/fluency/48/000000/palm-tree.png');
+        }
+        .flamingo {
+            background-image: url('https://img.icons8.com/fluency/48/000000/flamingo.png');
+        }
+    </style>
+</head>
+<body>
+    <h1>种树游戏</h1>
+    <div id="score">积分：0</div>
+    <button onclick="plantTree()">种树</button>
+    <div id="treeContainer"></div>
+
+    <script>
+        let score = 0;
+        const smallTrees = [];
+        const mediumTrees = [];
+        const largeTrees = [];
+
+        function updateScore() {
+            document.getElementById('score').innerText = `积分：${score}`;
+        }
+
+        function plantTree() {
+            score++;
+            updateScore();
+
+            const treeContainer = document.getElementById('treeContainer');
+            const newTree = document.createElement('div');
+            newTree.classList.add('tree', 'small-tree');
+            treeContainer.appendChild(newTree);
+            smallTrees.push(newTree);
+
+            if (smallTrees.length === 3) {
+                smallTrees.forEach(tree => tree.remove());
+                smallTrees.length = 0;
+                growMediumTree();
+            }
+        }
+
+        function growMediumTree() {
+            const treeContainer = document.getElementById('treeContainer');
+            const newTree = document.createElement('div');
+            newTree.classList.add('tree', 'medium-tree');
+            treeContainer.appendChild(newTree);
+            mediumTrees.push(newTree);
+
+            if (mediumTrees.length === 3) {
+                mediumTrees.forEach(tree => tree.remove());
+                mediumTrees.length = 0;
+                growLargeTree();
+            }
+        }
+
+        function growLargeTree() {
+            const treeContainer = document.getElementById('treeContainer');
+            const newTree = document.createElement('div');
+            newTree.classList.add('tree', 'large-tree');
+            treeContainer.appendChild(newTree);
+            largeTrees.push(newTree);
+
+            if (largeTrees.length === 3) {
+                largeTrees.forEach(tree => tree.remove());
+                largeTrees.length = 0;
+                growFlamingo();
+            }
+        }
+
+        function growFlamingo() {
+            const treeContainer = document.getElementById('treeContainer');
+            const newFlamingo = document.createElement('div');
+            newFlamingo.classList.add('tree', 'flamingo');
+            treeContainer.appendChild(newFlamingo);
+        }
+    </script>
+</body>
+</html>
